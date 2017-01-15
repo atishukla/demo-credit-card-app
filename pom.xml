@@ -7,15 +7,30 @@
    <version>1.0.0-SNAPSHOT</version>
    <name>Credit_Card_App Maven Webapp</name>
    <url>http://maven.apache.org</url>
+
+
+
    <properties>
        <!-- Sonar specific properties Does not need username and password in new versions -->
+
+       <!-- Sane default when no revision property is passed in from the commandline -->
+       <revision>0-SNAPSHOT</revision>
 
     <sonar.host.url>http://myserver:19000</sonar.host.url>
     <sonar.dynamic>reuseReports</sonar.dynamic>
 
    </properties>
 
+    <!-- Attempt to make git versioning -->
+
+    <scm>
+        <connection>scm:git:git@github.com:atishukla/demo-credit-card-app.git</connection>
+        <url>https://github.com/atishukla/demo-credit-card-app</url>
+        <developerConnection>scm:git:git@github.com:atishukla/demo-credit-card-app.git</developerConnection>
+    </scm>
+
    <dependencies>
+
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
@@ -34,9 +49,11 @@
          <artifactId>servlet-api</artifactId>
          <version>2.5</version>
        </dependency>
+
    </dependencies>
    <build>
       <plugins>
+
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -49,6 +66,7 @@
                <showDeprecation>true</showDeprecation>
             </configuration>
          </plugin>
+
          <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
@@ -57,6 +75,25 @@
                <sonar.sources>src/main/java</sonar.sources>
             </configuration>
          </plugin>
+
+<!-- Continuous integration versioning -->
+
+          <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>versions-maven-plugin</artifactId>
+              <version>2.1</version>
+          </plugin>
+
+          <plugin>
+              <artifactId>maven-scm-plugin</artifactId>
+              <version>1.9.4</version>
+              <configuration>
+                  <tag>${project.artifactId}-${project.version}</tag>
+              </configuration>
+          </plugin>
+
+          <!-- Continuous integration versioning -->
+
       </plugins>
       <finalName>CreditCardApp</finalName>
    </build>
